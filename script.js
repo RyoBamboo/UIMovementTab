@@ -16,7 +16,9 @@ xhr.send();
 
 function test() {
 	$(gifSources).each(function() {
-		var text = '<a href='+this.url+'><img src="'+ this.src +'" data-src="' + this.src + '"></a>';
-		console.log(text);
+		//var text = '<a href="http://uimovement.com'+this.url+'"><img src="'+ this.src +'" data-src="'+ this.src + '"></a>';
+		var image = '<img src="'+ this.src +'" data-src="'+ this.src + '">';
+		var link = "<a href='http://uimovement.com"+this.url+"'>" + image +"</a>";
+		$('.te').append(link);
 	});
 }
