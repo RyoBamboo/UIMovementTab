@@ -1,0 +1,17 @@
+{
+	"manifest_version": 2,
+	"name": "ここに拡張機能の名前",
+	"version": "1.0.0",
+	"description": "ここに拡張機能の説明",
+	"permissions": [ "tabs" ],
+	"chrome_url_overrides" : {
+		"newtab": "index.html"
+	},
+	"content_security_policy": "script-src 'self' https://code.jquery.com; object-src 'self'",
+	"content_scripts": [
+		{
+		"matches": [ "http://*/*", "https://*/*" ],
+		"js": [ "jquery.min.js", "script.js" ]
+		}
+	]
+}
