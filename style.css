@@ -1,0 +1,19 @@
+#loader {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 8px solid #666;
+    border-right-color: transparent;
+    animation: spin 1s infinite linear;
+    -webkit-animation: spin 1s infinite linear;
+    -moz-animation: spin 1s infinite linear;
+}
+
+@-webkit-keyframes spin
+{
+    0% { -webkit-transform: rotate(0deg); opacity: 0.4; }
+    50%  { -webkit-transform: rotate(180deg); opacity: 1; }
+    100%   { -webkit-transform: rotate(360deg); opacity: 0.4; }
+}
+
