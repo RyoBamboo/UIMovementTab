@@ -11,6 +11,7 @@ xhr.onload = function(e) {
 		gifSources.push({ url: url, src: src });
 	});
 	test();
+	fadeOut('loader-bg');
 };
 xhr.send();
 
@@ -20,4 +21,8 @@ function test() {
 		var link = "<a href='http://uimovement.com"+this.url+"' target='_blank'>" + image +"</a>";
 		$('.te').append(link);
 	});
+}
+
+function fadeOut(elementId) {
+	$('#'+elementId).fadeOut('slow');
 }
