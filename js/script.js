@@ -28,8 +28,10 @@ xhr.send();
 function show() {
 	Object.keys(data).forEach(function(date) {
 		Object.keys(data[date]).forEach(function(index) {
-			var image = "<img src='"+ data[date][index].src + "' data-src='"+ data[date][index].src + "'>";
-			var link = "<a class='gif-image' href='http://uimovement.com"+data[date][index].url+"' target='_blank' style='display:none'>"+ image +"</a>";
+			var src = data[date][index].src;
+			var url = data[date][index].url;
+			var image = "<img src='"+ src + "' data-src='"+ src + "'>";
+			var link = "<a class='gif-image' href='http://uimovement.com"+ url +"' target='_blank' style='display:none'>"+ image +"</a>";
 			$('#images').append(link);
 		});
 	});
@@ -52,5 +54,3 @@ function fadeIn(elementClass, delaySpeed, fadeSpeed) {
 function fadeOut(elementId) {
 	$('#'+elementId).fadeOut('slow');
 }
-
-
