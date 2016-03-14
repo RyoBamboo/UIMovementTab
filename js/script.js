@@ -3,10 +3,22 @@ var xhr = new XMLHttpRequest();
 xhr.open('GET', "http://uimovement.com/");
 xhr.onload = function(e) {
 	var text = xhr.responseText;
-	$(text).find('.single_gif_preview_wrapper').each(function() {
-		var url = $(this).find('a').attr('href');
-		var src = $(this).find('img').data('src'); // gifソースの取得
-		data.push({ url: url, src: src });
+	$(text).find('.day-of-resources-wrapper').each(function(i) {
+		// 日付の取得
+		var dateString = $(this).children('h4').text().split('Today');
+		dateString.forEach(function(value) {
+			if (value !== '') {
+				dateString = value.trim();
+			}
+		});
+		data[dateString]={};
+		$(this).find('.single_gif_preview_wrapper').each(function(i) {
+			var _data = {
+				url: $(this).find('a').attr('href'),
+                src: $(this).find('img').data('src')
+			};
+			data[dateString][i] = _data;
+		});
 	});
 	fadeOut('loader-bg'); // ロード画面を非表示
 	show(); // 画像の表示
@@ -14,10 +26,12 @@ xhr.onload = function(e) {
 xhr.send();
 
 function show() {
-	$(data).each(function() {
-		var image = "<img src='"+ this.src + "' data-src='"+ this.src + "'>";
-		var link = "<a class='gif-image' href='http://uimovement.com"+this.url+"' target='_blank' style='display:none'>" + image +"</a>";
-		$('#images').append(link);
+	Object.keys(data).forEach(function(date) {
+		Object.keys(data[date]).forEach(function(index) {
+			var image = "<img src='"+ data[date][index].src + "' data-src='"+ data[date][index].src + "'>";
+			var link = "<a class='gif-image' href='http://uimovement.com"+data[date][index].url+"' target='_blank' style='display:none'>"+ image +"</a>";
+			$('#images').append(link);
+		});
 	});
 	fadeIn('gif-image', 500, 1000);
 }
@@ -38,3 +52,5 @@ function fadeIn(elementClass, delaySpeed, fadeSpeed) {
 function fadeOut(elementId) {
 	$('#'+elementId).fadeOut('slow');
 }
+
+
