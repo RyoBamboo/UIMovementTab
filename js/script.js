@@ -3,21 +3,45 @@ var xhr = new XMLHttpRequest();
 xhr.open('GET', "http://uimovement.com/");
 xhr.onload = function(e) {
 	var text = xhr.responseText;
-	$(text).find('.single_gif_preview_wrapper').each(function() {
-		var url = $(this).find('a').attr('href');
-		var src = $(this).find('img').data('src'); // gifソースの取得
-		data.push({ url: url, src: src });
+	$(text).find('.day-of-resources-wrapper').each(function(i) {
+		// 日付の取得
+		var dateString = $(this).children('h4').text().split('Today');
+		dateString.forEach(function(value) {
+			if (value !== '') {
+				dateString = value.trim();
+			}
+		});
+		data[dateString]={};
+
+		/* 必要な情報の取得 */
+		$(this).find('.single-resource-thumb').each(function(i) {
+			var _data = {
+				title: $(this).find('h6').text(), // 作品名
+				creatorImg: $(this).find('.avatar-image').attr('src'), // 作者画像
+				creatorName: $(this).find('.user-resource-user-deets').find('a').text(), // 作者名
+				url: $(this).find('.single_gif_preview_wrapper').find('a').attr('href'), // 画像元サイト
+				src: $(this).find('.single_gif_preview_wrapper').find('img').data('src') // 画像ソース
+			};
+			data[dateString][i] = _data;
+		});
+
+
 	});
+
 	fadeOut('loader-bg'); // ロード画面を非表示
 	show(); // 画像の表示
 };
 xhr.send();
 
 function show() {
-	$(data).each(function() {
-		var image = "<img src='"+ this.src + "' data-src='"+ this.src + "'>";
-		var link = "<a class='gif-image' href='http://uimovement.com"+this.url+"' target='_blank' style='display:none'>" + image +"</a>";
-		$('#images').append(link);
+	Object.keys(data).forEach(function(date) {
+		Object.keys(data[date]).forEach(function(index) {
+			var src = data[date][index].src;
+			var url = data[date][index].url;
+			var image = "<img src='"+ src + "' data-src='"+ src + "'>";
+			var link = "<a class='gif-image' href='http://uimovement.com"+ url +"' target='_blank' style='display:none'>"+ image +"</a>";
+			$('#images').append(link);
+		});
 	});
 	fadeIn('gif-image', 500, 1000);
 }
