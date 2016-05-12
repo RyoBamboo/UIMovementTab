@@ -1,3 +1,15 @@
+/**
+ * 基本レイアウト
+ */
+#images {
+    margin: auto;
+
+}
+
+
+/**
+ * ロード画面
+ */
 #loader_bg {
     position: fixed;
     width: 100%;
