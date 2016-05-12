@@ -43,7 +43,8 @@ function show() {
 			$('#images').append(link);
 		});
 	});
-	fadeIn('gif-image', 500, 1000);
+	setCss(); // CSSの設定
+	fadeIn('gif-image', 500, 1000); // 画像のフェードイン
 }
 
 /**
@@ -61,4 +62,28 @@ function fadeIn(elementClass, delaySpeed, fadeSpeed) {
 
 function fadeOut(elementId) {
 	$('#'+elementId).fadeOut('slow');
+}
+
+/**
+ * jQueryで操作したDOMにCSSを設定する
+ */
+function setCss() {
+	var images = {
+		width: "50%",
+		margin: "auto",
+		textAlign: "center"
+	};
+
+	var gifImage = {
+		margin: "5% 0"
+	};
+
+	var image = {
+		width: "70%"
+	};
+
+	$('.gif-image').css(gifImage);
+	$('.gif-image img').css(image);
+	$('#images').css(images);
+
 }
