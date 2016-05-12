@@ -12,14 +12,22 @@ xhr.onload = function(e) {
 			}
 		});
 		data[dateString]={};
-		$(this).find('.single_gif_preview_wrapper').each(function(i) {
+
+		/* 必要な情報の取得 */
+		$(this).find('.single-resource-thumb').each(function(i) {
 			var _data = {
-				url: $(this).find('a').attr('href'),
-                src: $(this).find('img').data('src')
+				title: $(this).find('h6').text(), // 作品名
+				creatorImg: $(this).find('.avatar-image').attr('src'), // 作者画像
+				creatorName: $(this).find('.user-resource-user-deets').find('a').text(), // 作者名
+				url: $(this).find('.single_gif_preview_wrapper').find('a').attr('href'), // 画像元サイト
+				src: $(this).find('.single_gif_preview_wrapper').find('img').data('src') // 画像ソース
 			};
 			data[dateString][i] = _data;
 		});
+
+
 	});
+
 	fadeOut('loader-bg'); // ロード画面を非表示
 	show(); // 画像の表示
 };
